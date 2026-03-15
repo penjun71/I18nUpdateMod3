@@ -25,13 +25,16 @@ jobs:
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@af1da67850ed9a4cedd57bfd976089dd991e2582
 
-    # ✅ 这是你仓库【真正支持】的命令，我亲自验证过
     - name: Build NeoForge Only
       run: ./gradlew build -Ploader=neoforge
 
-    # ✅ 只上传 NeoForge 产物
-    - name: Upload NeoForge artifacts
+    # ✅ 先看看所有 jar 在哪（调试用）
+    - name: List all jar files
+      run: find . -name "*.jar"
+
+    # ✅ 上传所有找到的 jar，不管路径
+    - name: Upload all jars
       uses: actions/upload-artifact@v4
       with:
-        name: I18nUpdateMod3-NeoForge-Only
-        path: "*/build/libs/*.jar"
+        name: I18nUpdateMod3-Found-Jars
+        path: "**/*.jar"

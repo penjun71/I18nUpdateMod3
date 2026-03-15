@@ -34,4 +34,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: I18nUpdateMod3-NeoForge-Only
-        path: "*/build/libs/*neoforge*.jar"
+        path: "*/build/libs/*.jar"

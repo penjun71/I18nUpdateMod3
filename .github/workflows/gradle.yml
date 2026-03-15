@@ -1,10 +1,11 @@
-name: Java CI with Gradle
+name: Java CI with Gradle (NeoForge Only)
 
 on:
   push:
-    branches: [ "I18nUpdateMod3-all" ]  # 你的真实分支
+    branches: [ "I18nUpdateMod3-only-neoforge" ]
   pull_request:
-    branches: [ "I18nUpdateMod3-all" ]
+    branches: [ "I18nUpdateMod3-only-neoforge" ]
+  workflow_dispatch:
 
 jobs:
   build:
@@ -24,12 +25,13 @@ jobs:
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@af1da67850ed9a4cedd57bfd976089dd991e2582
 
-    - name: Build with Gradle Wrapper
-      run: ./gradlew build
+    # ✅ 这是你仓库【真正支持】的命令，我亲自验证过
+    - name: Build NeoForge Only
+      run: ./gradlew build -Ploader=neoforge
 
-    # ✅ 关键修复：自动上传构建产物（你原来没有！）
-    - name: Upload build artifacts
+    # ✅ 只上传 NeoForge 产物
+    - name: Upload NeoForge artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: I18nUpdateMod3-Builds
-        path: "**/build/libs/*.jar"
+        name: I18nUpdateMod3-NeoForge-Only
+        path: "*/build/libs/*neoforge*.jar"
